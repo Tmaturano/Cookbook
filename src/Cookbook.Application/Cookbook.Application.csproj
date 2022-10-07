@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Cookbook.Domain\Cookbook.Domain.csproj" />
-    <ProjectReference Include="..\src\Shared\Cookbook.Communication\Cookbook.Communication.csproj" />
-    <ProjectReference Include="..\src\Shared\Cookbook.Exceptions\Cookbook.Exceptions.csproj" />
+    <ProjectReference Include="..\Cookbook.Domain\Cookbook.Domain.csproj" />
+    <ProjectReference Include="..\Shared\Cookbook.Communication\Cookbook.Communication.csproj" />
+    <ProjectReference Include="..\Shared\Cookbook.Exceptions\Cookbook.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>
