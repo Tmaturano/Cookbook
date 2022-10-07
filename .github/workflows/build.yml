@@ -47,7 +47,6 @@ jobs:
 
       - name: Install project dependencies
         run: dotnet restore
-        working-directory: src
 
       - name: Build and analyze
         env:
@@ -57,8 +56,6 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Tmaturano_Cookbook" /o:"tmaturano" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        working-directory: src
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: src
