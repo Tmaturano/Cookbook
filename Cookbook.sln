@@ -5,27 +5,27 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{89701B78-952A-45E9-985B-9F6771721747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.API", "src\Cookbook.API\Cookbook.API.csproj", "{088910C7-741E-4576-8039-BBFD60BBFD83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.API", "src\Cookbook.API\Cookbook.API.csproj", "{088910C7-741E-4576-8039-BBFD60BBFD83}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{30767205-A6B4-4123-8F22-39A342E873EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D34CBC55-5A67-4173-93C3-56067D7F6212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Communication", "src\Shared\Cookbook.Communication\Cookbook.Communication.csproj", "{BA825879-E2DD-4BCA-A7A5-8A76090FFE18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Communication", "src\Shared\Cookbook.Communication\Cookbook.Communication.csproj", "{BA825879-E2DD-4BCA-A7A5-8A76090FFE18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Exceptions", "src\Shared\Cookbook.Exceptions\Cookbook.Exceptions.csproj", "{CBB14E10-9C03-4082-B58C-BAE61A32F427}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Exceptions", "src\Shared\Cookbook.Exceptions\Cookbook.Exceptions.csproj", "{CBB14E10-9C03-4082-B58C-BAE61A32F427}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Domain", "src\Cookbook.Domain\Cookbook.Domain.csproj", "{A29153A3-B61D-4479-B90E-A3E6D0E3069A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Domain", "src\Cookbook.Domain\Cookbook.Domain.csproj", "{A29153A3-B61D-4479-B90E-A3E6D0E3069A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Infrastructure", "src\Cookbook.Infrastructure\Cookbook.Infrastructure.csproj", "{A8AB1EA6-9C4E-4B54-9C67-C6D22469B3C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Infrastructure", "src\Cookbook.Infrastructure\Cookbook.Infrastructure.csproj", "{A8AB1EA6-9C4E-4B54-9C67-C6D22469B3C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{4F7D5F2E-07A0-4B1D-A4BD-DC0C1563D620}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{4F7D5F2E-07A0-4B1D-A4BD-DC0C1563D620}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Domain.Test", "tests\Cookbook.Domain.Test\Cookbook.Domain.Test.csproj", "{865D0D61-FF49-4AD0-9158-58713256A373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Domain.Test", "tests\Cookbook.Domain.Test\Cookbook.Domain.Test.csproj", "{865D0D61-FF49-4AD0-9158-58713256A373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.API.Test", "tests\Cookbook.API.Test\Cookbook.API.Test.csproj", "{F02E2C73-7293-4834-AAC8-93BD9D324124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.API.Test", "tests\Cookbook.API.Test\Cookbook.API.Test.csproj", "{F02E2C73-7293-4834-AAC8-93BD9D324124}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookbook.Application", "src\Cookbook.Application\Cookbook.Application.csproj", "{1DE8C329-50A3-402F-BA7E-214B54E2917A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Application", "src\Cookbook.Application\Cookbook.Application.csproj", "{1DE8C329-50A3-402F-BA7E-214B54E2917A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

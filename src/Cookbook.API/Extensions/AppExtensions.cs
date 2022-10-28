@@ -1,4 +1,8 @@
-﻿using Cookbook.Infrastructure.Data;
+﻿using Cookbook.Domain.Interfaces.Repository;
+using Cookbook.Domain.Interfaces.UoW;
+using Cookbook.Infrastructure.Data;
+using Cookbook.Infrastructure.Data.Repository;
+using Cookbook.Infrastructure.Data.UoW;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Compression;
@@ -12,6 +16,10 @@ namespace Cookbook.API.Extensions
         {
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<CookbookContext>(options => options.UseNpgsql(connectionString));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //Repositories
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
         }
 
         public static void ConfigureMvc(this WebApplicationBuilder builder)
