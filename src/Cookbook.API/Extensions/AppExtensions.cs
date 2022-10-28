@@ -16,7 +16,6 @@ namespace Cookbook.API.Extensions
 
         public static void ConfigureMvc(this WebApplicationBuilder builder)
         {
-            //Todo: Change to another service in future
             builder.Services.AddMemoryCache();
 
             builder.Services.AddResponseCompression(options =>
