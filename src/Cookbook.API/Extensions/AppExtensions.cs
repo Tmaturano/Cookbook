@@ -1,11 +1,15 @@
-﻿using Cookbook.Domain.Interfaces.Repository;
+﻿using Cookbook.API.Filters;
+using Cookbook.Application.Services.AutoMapper;
+using Cookbook.Domain.Interfaces.Repository;
 using Cookbook.Domain.Interfaces.UoW;
 using Cookbook.Infrastructure.Data;
 using Cookbook.Infrastructure.Data.Repository;
 using Cookbook.Infrastructure.Data.UoW;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Compression;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace Cookbook.API.Extensions
@@ -17,6 +21,8 @@ namespace Cookbook.API.Extensions
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<CookbookContext>(options => options.UseNpgsql(connectionString));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
+            builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfiguration)));
 
             //Repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();
