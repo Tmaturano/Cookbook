@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Cookbook.Application\Cookbook.Application.csproj" />
     <ProjectReference Include="..\Cookbook.Infrastructure\Cookbook.Infrastructure.csproj" />
     <ProjectReference Include="..\Shared\Cookbook.Communication\Cookbook.Communication.csproj" />

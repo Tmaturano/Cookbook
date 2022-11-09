@@ -1,11 +1,11 @@
 ﻿using Cookbook.API.Filters;
 using Cookbook.Application.Services.AutoMapper;
+using Cookbook.Application.UseCases.User.Create;
 using Cookbook.Domain.Interfaces.Repository;
 using Cookbook.Domain.Interfaces.UoW;
 using Cookbook.Infrastructure.Data;
 using Cookbook.Infrastructure.Data.Repository;
 using Cookbook.Infrastructure.Data.UoW;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Compression;
@@ -25,7 +25,10 @@ namespace Cookbook.API.Extensions
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfiguration)));
 
             //Repositories
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();            
+
+            //UseCases
+            builder.Services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
         }
 
         public static void ConfigureMvc(this WebApplicationBuilder builder)
