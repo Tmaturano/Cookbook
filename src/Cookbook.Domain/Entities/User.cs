@@ -14,8 +14,5 @@ public class User : EntityBase
     public string PasswordHash { get; private set; }
     public string Phone { get; private set; }
 
-    public void EncryptPassword(string password)
-    {
-        PasswordHash = password;
-    }
+    public void SetPassword(string password) => PasswordHash = password;
 }

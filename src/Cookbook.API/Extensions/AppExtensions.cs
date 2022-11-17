@@ -1,5 +1,7 @@
 ﻿using Cookbook.API.Filters;
+using Cookbook.Application;
 using Cookbook.Application.Services.AutoMapper;
+using Cookbook.Application.Services.JWT;
 using Cookbook.Application.UseCases.User.Create;
 using Cookbook.Domain.Interfaces.Repository;
 using Cookbook.Domain.Interfaces.UoW;
@@ -16,6 +18,14 @@ namespace Cookbook.API.Extensions
 {
     public static class AppExtensions
     {
+        public static void LoadConfiguration(this WebApplicationBuilder builder)
+        {
+            Configuration.JwtKey = builder.Configuration.GetValue<string>("JwtKey");
+            Configuration.ApiKeyName = builder.Configuration.GetValue<string>("ApiKeyName");
+            Configuration.ApiKey = builder.Configuration.GetValue<string>("ApiKey");
+            Configuration.TokenDurationInMinutes = builder.Configuration.GetValue<int>("TokenDurationInMinutes");
+        }
+
         public static void ConfigureServices(this WebApplicationBuilder builder)
         {
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -23,6 +33,7 @@ namespace Cookbook.API.Extensions
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfiguration)));
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
             //Repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();            

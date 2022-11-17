@@ -1,8 +1,9 @@
 ﻿using Cookbook.Communication.Request;
+using Cookbook.Communication.Response;
 
 namespace Cookbook.Application.UseCases.User.Create;
 
 public interface ICreateUserUseCase
 {
-    Task ExecuteAsync(RegisterUserRequest request);
+    Task<UserRegisteredResponse> ExecuteAsync(RegisterUserRequest request);
 }
