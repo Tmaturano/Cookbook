@@ -61,6 +61,15 @@ namespace Cookbook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given email address already exists in the database..
+        /// </summary>
+        public static string EmailAlreadyExists {
+            get {
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user&apos;s email is required..
         /// </summary>
         public static string EmptyUserEmail {

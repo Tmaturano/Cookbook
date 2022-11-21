@@ -4,7 +4,9 @@ using Cookbook.Communication.Request;
 using Cookbook.Communication.Response;
 using Cookbook.Domain.Interfaces.Repository;
 using Cookbook.Domain.Interfaces.UoW;
+using Cookbook.Exceptions;
 using Cookbook.Exceptions.ExceptionsBase;
+using FluentValidation.Results;
 using SecureIdentity.Password;
 
 namespace Cookbook.Application.UseCases.User.Create;
@@ -44,6 +46,9 @@ public class CreateUserUseCase : ICreateUserUseCase
     {
         var validator = new CreateUserValidator();
         var result = await validator.ValidateAsync(request);
+
+        if (await _userRepository.ExistsAsync(request.Email))        
+            result.Errors.Add(new ValidationFailure("email", ErrorMessages.EmailAlreadyExists));        
 
         if (!result.IsValid)
         {

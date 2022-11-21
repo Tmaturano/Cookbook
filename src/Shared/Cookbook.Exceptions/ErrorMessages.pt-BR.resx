@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Já existe um usuário com este email.</value>
+  </data>
   <data name="EmptyUserEmail" xml:space="preserve">
     <value>O email do usuário é obrigatório.</value>
   </data>
