@@ -10,12 +10,12 @@ namespace Cookbook.API.Controllers;
 public class UserController : ControllerBase
 {
     [HttpPost()]
-    [ProducesResponseType(typeof(UserRegisteredResponse), 201)]
-    [ProducesResponseType(typeof(UserRegisteredResponse), 400)]
+    [ProducesResponseType(typeof(UserRegisteredResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(UserRegisteredResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromServices] ICreateUserUseCase createUserService,
         [FromBody]RegisterUserRequest request)
     {
         var response = await createUserService.ExecuteAsync(request);
-        return Ok(response);     
+        return CreatedAtAction(string.Empty,response);
     }        
 }
