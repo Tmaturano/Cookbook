@@ -16,6 +16,6 @@ public class UserController : ControllerBase
         [FromBody]RegisterUserRequest request)
     {
         var response = await createUserService.ExecuteAsync(request);
-        return CreatedAtAction(string.Empty,response);
+        return Created(string.Empty,response);
     }        
 }
