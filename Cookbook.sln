@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cookbook.Application", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "tests\Helper\Helper.csproj", "{DB4E8ADC-E1A8-48D0-A76F-F5D107174377}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases.Test", "tests\UseCases.Test\UseCases.Test.csproj", "{55473339-CB42-42FF-AC79-29DFFF53944B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{DB4E8ADC-E1A8-48D0-A76F-F5D107174377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB4E8ADC-E1A8-48D0-A76F-F5D107174377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB4E8ADC-E1A8-48D0-A76F-F5D107174377}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55473339-CB42-42FF-AC79-29DFFF53944B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55473339-CB42-42FF-AC79-29DFFF53944B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55473339-CB42-42FF-AC79-29DFFF53944B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55473339-CB42-42FF-AC79-29DFFF53944B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{F02E2C73-7293-4834-AAC8-93BD9D324124} = {30767205-A6B4-4123-8F22-39A342E873EB}
 		{1DE8C329-50A3-402F-BA7E-214B54E2917A} = {89701B78-952A-45E9-985B-9F6771721747}
 		{DB4E8ADC-E1A8-48D0-A76F-F5D107174377} = {30767205-A6B4-4123-8F22-39A342E873EB}
+		{55473339-CB42-42FF-AC79-29DFFF53944B} = {30767205-A6B4-4123-8F22-39A342E873EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01E621E9-A91F-49F6-A566-B91F3D24A250}
