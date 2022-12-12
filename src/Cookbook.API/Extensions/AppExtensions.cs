@@ -28,8 +28,14 @@ namespace Cookbook.API.Extensions
 
         public static void ConfigureServices(this WebApplicationBuilder builder)
         {
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<CookbookContext>(options => options.UseNpgsql(connectionString));
+            bool.TryParse(builder.Configuration.GetValue<string>("InMemoryDatabase"), out var inMemoryDatabase);
+
+            if (!inMemoryDatabase)
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                builder.Services.AddDbContext<CookbookContext>(options => options.UseNpgsql(connectionString));
+            }
+
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
             builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfiguration)));
