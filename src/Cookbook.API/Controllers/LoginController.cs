@@ -10,6 +10,7 @@ public class LoginController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Post([FromServices] ILoginUseCase loginUseCase, 
         [FromBody] LoginRequest request)
     {

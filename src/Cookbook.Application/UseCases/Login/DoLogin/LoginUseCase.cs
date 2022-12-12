@@ -37,20 +37,24 @@ public class LoginUseCase : ILoginUseCase
         var validator = new LoginValidator();
         var result = await validator.ValidateAsync(request);
 
-        if (user is null)
-        {
-            result.Errors.Add(new ValidationFailure("user", "User not found"));
-            var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
-            throw new InvalidLoginException(errorMessages);
-        }
-
-        if (!PasswordHasher.Verify(user.PasswordHash, request.Password))
-            result.Errors.Add(new ValidationFailure("password", ErrorMessages.InvalidLogin));
-
         if (!result.IsValid)
         {
             var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
             throw new ValidationErrorsException(errorMessages);
+        }
+
+        if (user is null)
+        {
+            result.Errors.Add(new ValidationFailure("user", "User not found"));
+            var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+            throw new ValidationErrorsException(errorMessages);
+        }
+
+        if (!PasswordHasher.Verify(user.PasswordHash, request.Password))
+        {
+            result.Errors.Add(new ValidationFailure("password", ErrorMessages.InvalidLogin));
+            var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+            throw new InvalidLoginException(errorMessages);
         }
     }
 }

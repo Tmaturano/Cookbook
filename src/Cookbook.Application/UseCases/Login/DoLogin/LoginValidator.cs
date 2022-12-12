@@ -10,5 +10,10 @@ public class LoginValidator : AbstractValidator<LoginRequest>
 	{
         RuleFor(c => c.Email).NotEmpty().WithMessage(ErrorMessages.EmptyUserEmail);
         RuleFor(c => c.Password).NotEmpty().WithMessage(ErrorMessages.EmptyUserPassword);
+
+        When(c => !string.IsNullOrWhiteSpace(c.Email), () =>
+        {
+            RuleFor(c => c.Email).EmailAddress().WithMessage(ErrorMessages.InvalidUserEmail);
+        });
     }
 }
