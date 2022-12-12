@@ -45,7 +45,7 @@ public class LoginUseCase : ILoginUseCase
         }
 
         if (!PasswordHasher.Verify(user.PasswordHash, request.Password))
-            result.Errors.Add(new ValidationFailure("password", ErrorMessages.InvalidUserPassword));
+            result.Errors.Add(new ValidationFailure("password", ErrorMessages.InvalidLogin));
 
         if (!result.IsValid)
         {
