@@ -12,5 +12,5 @@ public class ErrorResponse
 		};		
 	}
 
-    public ErrorResponse(IEnumerable<string> messages) => Messages = messages;
+    public ErrorResponse(IList<string> messages) => Messages = messages;
 }

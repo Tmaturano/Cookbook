@@ -2,6 +2,7 @@
 using Cookbook.Application;
 using Cookbook.Application.Services.AutoMapper;
 using Cookbook.Application.Services.JWT;
+using Cookbook.Application.UseCases.Login.DoLogin;
 using Cookbook.Application.UseCases.User.Create;
 using Cookbook.Domain.Interfaces.Repository;
 using Cookbook.Domain.Interfaces.UoW;
@@ -46,6 +47,7 @@ namespace Cookbook.API.Extensions
 
             //UseCases
             builder.Services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+            builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
         }
 
         public static void ConfigureMvc(this WebApplicationBuilder builder)

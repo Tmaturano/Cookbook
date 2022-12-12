@@ -52,7 +52,7 @@ public class CreateUserUseCase : ICreateUserUseCase
 
         if (!result.IsValid)
         {
-            var errorMessages = result.Errors.Select(error => error.ErrorMessage);
+            var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
             throw new ValidationErrorsException(errorMessages);
         }
     }
