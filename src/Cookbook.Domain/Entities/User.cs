@@ -2,6 +2,10 @@
 
 public class User : EntityBase
 {
+    protected User()
+    {
+    }
+
     public User(string name, string email, string phone)
     {           
         Name = name;
