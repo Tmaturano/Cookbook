@@ -11,7 +11,7 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is CookbookException)        
+        if (context.Exception is CookbookException)
             HandleCookbookException(context);
         else
             HandleOtherExceptions(context);
@@ -19,9 +19,27 @@ public class ExceptionFilter : IExceptionFilter
 
     private void HandleCookbookException(ExceptionContext context)
     {
-        var validationErrorMessages = context.Exception as ValidationErrorsException;
+        switch (context.Exception)
+        {
+            case ValidationErrorsException:
+                HandleValidationExceptions(context); break;
+            case InvalidLoginException:
+                HandleInvalidLoginException(context); break;
+            default: break;
+        }
+    }
 
+    private void HandleValidationExceptions(ExceptionContext context)
+    {
+        var validationErrorMessages = context.Exception as ValidationErrorsException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new ObjectResult(new ErrorResponse(validationErrorMessages.ErrorMessages));
+    }
+
+    private void HandleInvalidLoginException(ExceptionContext context)
+    {
+        var validationErrorMessages = context.Exception as InvalidLoginException;
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
         context.Result = new ObjectResult(new ErrorResponse(validationErrorMessages.ErrorMessages));
     }
 

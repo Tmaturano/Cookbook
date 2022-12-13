@@ -1,4 +1,5 @@
-﻿using Cookbook.Infrastructure.Data;
+﻿using Cookbook.Domain.Entities;
+using Cookbook.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,9 @@ namespace Cookbook.API.Test;
 
 public class WebAppFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
+    private User _user;
+    private string _password;
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         //using the appsettings.Test.json and work with InMemory Database for the tests
@@ -34,6 +38,10 @@ public class WebAppFactory<TStartup> : WebApplicationFactory<TStartup> where TSt
                 var database = scopeService.GetRequiredService<CookbookContext>(); 
                 database.Database.EnsureDeleted();
 
+                (_user, _password) = ContextSeedInMemory.Seed(database);
             });
     }
+
+    public User User => _user;
+    public string Password => _password;
 }

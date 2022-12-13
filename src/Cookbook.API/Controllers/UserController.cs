@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cookbook.API.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
-public class UserController : ControllerBase
+public class UserController : BaseController
 {
-    [HttpPost()]
+    [HttpPost]
     [ProducesResponseType(typeof(UserRegisteredResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(UserRegisteredResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromServices] ICreateUserUseCase createUserService,
