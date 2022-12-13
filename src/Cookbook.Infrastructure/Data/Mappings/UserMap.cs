@@ -8,14 +8,14 @@ namespace Cookbook.Infrastructure.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("Users");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.CreatedOn)
                 .IsRequired()
                 .HasColumnName("CreatedOn")
-                .HasColumnType("timestamp");
+                .HasColumnType("timestamptz");
 
             builder.Property(x => x.Name)
                 .IsRequired()

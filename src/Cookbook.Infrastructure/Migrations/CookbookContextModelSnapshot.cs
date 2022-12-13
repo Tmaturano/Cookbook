@@ -29,7 +29,7 @@ namespace Cookbook.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("CreatedOn");
 
                     b.Property<string>("Email")
@@ -60,7 +60,7 @@ namespace Cookbook.Infrastructure.Migrations
                     b.HasIndex(new[] { "Email" }, "IX_User_Email")
                         .IsUnique();
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

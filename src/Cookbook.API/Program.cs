@@ -2,8 +2,10 @@ using Cookbook.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRouting(options => options.LowercaseUrls= true);
 builder.ConfigureMvc();
 builder.ConfigureServices();
+builder.LoadConfiguration();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,3 +25,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+
+
+public partial class Program 
+{
+}
