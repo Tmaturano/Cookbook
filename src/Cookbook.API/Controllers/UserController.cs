@@ -3,7 +3,6 @@ using Cookbook.Application.UseCases.User.Create;
 using Cookbook.Application.UseCases.User.UpdatePassword;
 using Cookbook.Communication.Request;
 using Cookbook.Communication.Response;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cookbook.API.Controllers;
