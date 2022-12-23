@@ -23,4 +23,8 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
     public async Task AddAsync(TEntity obj) => await DbSet.AddAsync(obj);
 
     public async Task<bool> ExistsAsync(Guid id) => await DbSet.FindAsync(id) is not null;
+
+    public void Update(TEntity obj) => DbSet.Update(obj);
+
+    public async Task<TEntity> GetByIdAsync(Guid id) => await DbSet.FindAsync(id);
 }

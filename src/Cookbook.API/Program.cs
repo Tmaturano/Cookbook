@@ -3,6 +3,7 @@ using Cookbook.API.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting(options => options.LowercaseUrls= true);
+builder.Services.AddHttpContextAccessor();
 builder.ConfigureMvc();
 builder.ConfigureServices();
 builder.LoadConfiguration();
