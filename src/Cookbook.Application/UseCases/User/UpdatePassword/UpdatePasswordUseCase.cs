@@ -39,10 +39,8 @@ public class UpdatePasswordUseCase : IUpdatePasswordUseCase
     {
         var validator = new UpdatePasswordValidator();
         var result = await validator.ValidateAsync(request);
-
-        var encryptedCurrentPassword = PasswordHasher.Hash(request.CurrentPassword);
-
-        if (!user.PasswordHash.Equals(encryptedCurrentPassword))
+                
+        if (!PasswordHasher.Verify(user.PasswordHash, request.CurrentPassword))
             result.Errors.Add(new ValidationFailure("currentPassword", ErrorMessages.InvalidCurrentPassword));
 
         if (!result.IsValid)

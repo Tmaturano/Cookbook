@@ -151,11 +151,29 @@ namespace Cookbook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faça o login novamente..
+        /// </summary>
+        public static string TokenExpired {
+            get {
+                return ResourceManager.GetString("TokenExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown Error..
         /// </summary>
         public static string UnknownError {
             get {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to access this feature..
+        /// </summary>
+        public static string UserHasNoAccess {
+            get {
+                return ResourceManager.GetString("UserHasNoAccess", resourceCulture);
             }
         }
     }

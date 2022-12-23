@@ -1,4 +1,5 @@
 using Cookbook.API.Extensions;
+using Cookbook.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.LoadConfiguration();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<AuthenticatedUserAttribute>();
 
 var app = builder.Build();
 
