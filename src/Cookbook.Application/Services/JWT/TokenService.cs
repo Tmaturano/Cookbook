@@ -30,7 +30,7 @@ public class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
-    public void ValidateToken(string token)
+    public ClaimsPrincipal ValidateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -43,6 +43,13 @@ public class TokenService : ITokenService
             ValidateAudience = false
         };
 
-        tokenHandler.ValidateToken(token, validationParameters, out _);
-    }    
+        return tokenHandler.ValidateToken(token, validationParameters, out _);
+    }
+
+    public string RecoverEmail(string token)
+    {
+        var claims = ValidateToken(token);
+
+        return claims.FindFirst(ClaimTypes.Name).Value;
+    }
 }

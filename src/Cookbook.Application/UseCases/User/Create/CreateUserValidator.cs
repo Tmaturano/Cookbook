@@ -9,19 +9,16 @@ public class CreateUserValidator : AbstractValidator<RegisterUserRequest>
     public CreateUserValidator()
     {
         RuleFor(c => c.Name).NotEmpty().WithMessage(ErrorMessages.EmptyUserName);
-        RuleFor(c => c.Email).NotEmpty().WithMessage(ErrorMessages.EmptyUserEmail);
-        RuleFor(c => c.Password).NotEmpty().WithMessage(ErrorMessages.EmptyUserPassword);
+        RuleFor(c => c.Email).NotEmpty().WithMessage(ErrorMessages.EmptyUserEmail);        
         RuleFor(c => c.Phone).NotEmpty().WithMessage(ErrorMessages.EmptyUserPhone);
+        RuleFor(c => c.Password).SetValidator(new PasswordValidator());
+
 
         When(c => !string.IsNullOrWhiteSpace(c.Email), () =>
         {
             RuleFor(c => c.Email).EmailAddress().WithMessage(ErrorMessages.InvalidUserEmail);
-        });
+        });        
 
-        When(c => !string.IsNullOrWhiteSpace(c.Password), () =>
-        {
-            RuleFor(c => c.Password).MinimumLength(6).WithMessage(ErrorMessages.InvalidUserPassword);
-        });
 
         When(c => !string.IsNullOrWhiteSpace(c.Phone), () =>
         {

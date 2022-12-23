@@ -1,9 +1,11 @@
 ﻿using Cookbook.API.Filters;
 using Cookbook.Application;
+using Cookbook.Application.Services.AuthenticatedUser;
 using Cookbook.Application.Services.AutoMapper;
 using Cookbook.Application.Services.JWT;
 using Cookbook.Application.UseCases.Login.DoLogin;
 using Cookbook.Application.UseCases.User.Create;
+using Cookbook.Application.UseCases.User.UpdatePassword;
 using Cookbook.Domain.Interfaces.Repository;
 using Cookbook.Domain.Interfaces.UoW;
 using Cookbook.Infrastructure.Data;
@@ -48,6 +50,10 @@ namespace Cookbook.API.Extensions
             //UseCases
             builder.Services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
             builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
+            builder.Services.AddScoped<IUpdatePasswordUseCase, UpdatePasswordUseCase>();
+
+            //Services
+            builder.Services.AddScoped<IAuthenticatedUser, AuthenticatedUser>();
         }
 
         public static void ConfigureMvc(this WebApplicationBuilder builder)
