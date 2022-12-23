@@ -132,6 +132,9 @@
   <data name="EmptyUserPhone" xml:space="preserve">
     <value>O telefone do usuário é obrigatório.</value>
   </data>
+  <data name="InvalidCurrentPassword" xml:space="preserve">
+    <value>Senha atual é inválida.</value>
+  </data>
   <data name="InvalidLogin" xml:space="preserve">
     <value>O e-mail e/ou senha estão incorretos.</value>
   </data>
@@ -144,7 +147,13 @@
   <data name="InvalidUserPhone" xml:space="preserve">
     <value>O telefone do usuário deve estar no formato XX X XXXX-XXXX.</value>
   </data>
+  <data name="TokenExpired" xml:space="preserve">
+    <value>Log in again.</value>
+  </data>
   <data name="UnknownError" xml:space="preserve">
     <value>Erro desconhecido.</value>
+  </data>
+  <data name="UserHasNoAccess" xml:space="preserve">
+    <value>Você não tem permissão para acessar este recurso.</value>
   </data>
 </root>
