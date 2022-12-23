@@ -52,6 +52,7 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"name\": \"{{$randomFullName}}\",\r\n  \"email\": \"{{EMAIL}}\",\r\n  \"password\": \"{{PASSWORD}}\",\r\n  \"phone\": \"{{phoneNumber}}\"\r\n}",
+
 					"options": {
 						"raw": {
 							"language": "json"

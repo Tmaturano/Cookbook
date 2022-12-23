@@ -13,10 +13,12 @@ public class CreateUserValidator : AbstractValidator<RegisterUserRequest>
         RuleFor(c => c.Phone).NotEmpty().WithMessage(ErrorMessages.EmptyUserPhone);
         RuleFor(c => c.Password).SetValidator(new PasswordValidator());
 
+
         When(c => !string.IsNullOrWhiteSpace(c.Email), () =>
         {
             RuleFor(c => c.Email).EmailAddress().WithMessage(ErrorMessages.InvalidUserEmail);
         });        
+
 
         When(c => !string.IsNullOrWhiteSpace(c.Phone), () =>
         {
