@@ -45,7 +45,8 @@ namespace Cookbook.API.Extensions
             builder.Services.AddScoped<ITokenService, TokenService>();
 
             //Repositories
-            builder.Services.AddScoped<IUserRepository, UserRepository>();            
+            builder.Services.AddScoped<IUserRepository, UserRepository>();   
+            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
             //UseCases
             builder.Services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
