@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cookbook.Infrastructure.Data.Mappings;
-internal class UserMap : IEntityTypeConfiguration<User>
+
+internal class IngredientMap : IEntityTypeConfiguration<Ingredient>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
-        builder.ToTable("Users");
+        builder.ToTable("Ingredients");
 
         builder.HasKey(x => x.Id);
 
@@ -22,23 +23,15 @@ internal class UserMap : IEntityTypeConfiguration<User>
             .HasColumnType("VARCHAR")
             .HasMaxLength(100);
 
-        builder.Property(x => x.Email)
+        builder.Property(x => x.Quantity)
             .IsRequired()
             .HasColumnType("VARCHAR")
-            .HasColumnName("Email")
+            .HasColumnName("Quantity")
             .HasMaxLength(160);
- 
-        builder.Property(x => x.PasswordHash)
-            .HasColumnName("PasswordHash")
-            .IsRequired();
 
-        builder.Property(x => x.Phone)
-            .HasColumnType("VARCHAR")
-            .HasColumnName("Phone")
-            .HasMaxLength(14)
-            .IsRequired();
-
-        builder.HasIndex(x => x.Email, "IX_User_Email")
-            .IsUnique();
+        builder.HasOne(x => x.Recipe)
+            .WithMany(x => x.Ingredients)
+            .HasConstraintName("FK_Ingredient_Recipe")
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

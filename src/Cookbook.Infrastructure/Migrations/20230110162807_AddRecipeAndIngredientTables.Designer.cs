@@ -3,6 +3,7 @@ using System;
 using Cookbook.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cookbook.Infrastructure.Migrations
 {
     [DbContext(typeof(CookbookContext))]
-    partial class CookbookContextModelSnapshot : ModelSnapshot
+    [Migration("20230110162807_AddRecipeAndIngredientTables")]
+    partial class AddRecipeAndIngredientTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
