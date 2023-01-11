@@ -33,5 +33,9 @@ internal class RecipeMap : IEntityTypeConfiguration<Recipe>
             .HasColumnName("Category")
             .HasColumnType("INT")
             .IsRequired();
+
+        builder.HasOne(x => x.Owner)
+            .WithMany(x => x.Recipes)
+            .HasConstraintName("FK_Recipe_User");
     }
 }

@@ -17,6 +17,7 @@ public class User : EntityBase
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
     public string Phone { get; private set; }
+    public ICollection<Recipe> Recipes { get; private set; } = new List<Recipe>();
 
     public void SetPassword(string password) => PasswordHash = password;
 }
