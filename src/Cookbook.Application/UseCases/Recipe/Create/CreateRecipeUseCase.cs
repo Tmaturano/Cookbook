@@ -30,7 +30,7 @@ public class CreateRecipeUseCase : ICreateRecipeUseCase
         var authenticatedUser = await _authenticatedUser.GetAsync();
 
         var recipe = _mapper.Map<Domain.Entities.Recipe>(request);
-        recipe.AddOwner(authenticatedUser);
+        recipe.SetOwnerId(authenticatedUser.Id);
 
         await _recipeRepository.AddAsync(recipe);
         await _unitOfWork.CommitAsync();

@@ -8,7 +8,6 @@ public class DomainToResponseMappingProfile : Profile
 {
     public DomainToResponseMappingProfile()
     {
-        //see how to construct this mapping
         CreateMap<Recipe, RecipeRegisteredResponse>()
             .ConstructUsing(request =>
                 new RecipeRegisteredResponse(request.Id, request.Title, request.Category, request.PreparationMode)
