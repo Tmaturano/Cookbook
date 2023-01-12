@@ -15,5 +15,8 @@ public class DomainToResponseMappingProfile : Profile
 
         CreateMap<Ingredient, IngredientRegisteredResponse>()
             .ConstructUsing(request => new IngredientRegisteredResponse(request.Id, request.Name, request.Quantity));
+
+        CreateMap<Recipe, RecipeDashboardResponse>()
+            .ConstructUsing(request => new RecipeDashboardResponse(request.Id, request.Title, request.Ingredients.Count));
     }
 }
