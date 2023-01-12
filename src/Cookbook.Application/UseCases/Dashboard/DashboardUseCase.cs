@@ -30,7 +30,7 @@ public class DashboardUseCase : IDashboardUseCase
         return new DashboardResponse(_mapper.Map<IEnumerable<RecipeDashboardResponse>>(recipes));
     }
 
-    private IEnumerable<Domain.Entities.Recipe> Filter(DashboardRequest request, IEnumerable<Domain.Entities.Recipe> recipes)
+    private static IEnumerable<Domain.Entities.Recipe> Filter(DashboardRequest request, IEnumerable<Domain.Entities.Recipe> recipes)
     {
         var filteredRecipes = recipes;
 
