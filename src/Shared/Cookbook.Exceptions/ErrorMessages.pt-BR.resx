@@ -147,6 +147,9 @@
   <data name="InvalidUserPhone" xml:space="preserve">
     <value>O telefone do usuário deve estar no formato XX X XXXX-XXXX.</value>
   </data>
+  <data name="RecipeNotFound" xml:space="preserve">
+    <value>Receita não encontrada.</value>
+  </data>
   <data name="TokenExpired" xml:space="preserve">
     <value>Log in again.</value>
   </data>

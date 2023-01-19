@@ -6,6 +6,7 @@ using Cookbook.Application.Services.JWT;
 using Cookbook.Application.UseCases.Dashboard;
 using Cookbook.Application.UseCases.Login.DoLogin;
 using Cookbook.Application.UseCases.Recipe.Create;
+using Cookbook.Application.UseCases.Recipe.GetById;
 using Cookbook.Application.UseCases.User.Create;
 using Cookbook.Application.UseCases.User.UpdatePassword;
 using Cookbook.Domain.Interfaces.Repository;
@@ -56,6 +57,7 @@ namespace Cookbook.API.Extensions
             builder.Services.AddScoped<IUpdatePasswordUseCase, UpdatePasswordUseCase>();
             builder.Services.AddScoped<ICreateRecipeUseCase, CreateRecipeUseCase>();
             builder.Services.AddScoped<IDashboardUseCase, DashboardUseCase>();
+            builder.Services.AddScoped<IGetRecipeByIdUseCase, GetRecipeByIdUseCase>();
 
             //Services
             builder.Services.AddScoped<IAuthenticatedUser, AuthenticatedUser>();
