@@ -11,5 +11,7 @@ public class RecipeRepository : RepositoryBase<Recipe>, IRecipeRepository
     }
 
     public async Task<IEnumerable<Recipe>> GetAllByUserIdAsync(Guid userId) 
-        => await DbSet.AsNoTracking().Where(x => x.OwnerId == userId).ToListAsync();
+        => await DbSet.AsNoTracking()
+            .Include(x => x.Ingredients)
+            .Where(x => x.OwnerId == userId).ToListAsync();
 }
