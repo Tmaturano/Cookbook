@@ -13,7 +13,7 @@ public class ResponseToDomainMappingProfile : Profile
 			.ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
 
 		CreateMap<RegisterRecipeRequest, Recipe>()
-			.ConstructUsing(request => new Recipe(request.Title, request.Category, request.PreparationMode));
+			.ConstructUsing(request => new Recipe(request.Title, request.Category, request.PreparationMode, request.PrepTime));
 
 		CreateMap<RegisterIngredientRequest, Ingredient>()
 			.ConstructUsing(request => new Ingredient(request.Name, request.Quantity));

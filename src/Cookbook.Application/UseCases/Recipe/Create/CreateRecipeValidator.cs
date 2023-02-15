@@ -11,6 +11,7 @@ public class CreateRecipeValidator : AbstractValidator<RegisterRecipeRequest>
         RuleFor(x => x.PreparationMode).NotEmpty();
         RuleFor(x => x.Category).IsInEnum();
         RuleFor(x => x.Ingredients).NotEmpty();
+        RuleFor(x => x.PrepTime).InclusiveBetween(1, 1000);
         RuleForEach(x => x.Ingredients).ChildRules(ingredient =>
         {
             ingredient.RuleFor(y => y.Name).NotEmpty();

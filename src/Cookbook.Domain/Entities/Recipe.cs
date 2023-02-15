@@ -4,11 +4,12 @@ namespace Cookbook.Domain.Entities;
 
 public class Recipe : EntityBase
 {
-    public Recipe(string title, Category category, string preparationMode)
+    public Recipe(string title, Category category, string preparationMode, int prepTime)
     {
         Title = title;
         Category = category;
         PreparationMode = preparationMode;
+        PrepTime = prepTime;
     }
 
     protected Recipe()
@@ -21,6 +22,7 @@ public class Recipe : EntityBase
 	public string PreparationMode { get; private set; }
     public ICollection<Ingredient> Ingredients { get; private set; } = new List<Ingredient>();
     public User Owner { get; private set; }
+    public int PrepTime { get; private set; }
 
     public void AddIngredient(Ingredient ingredient) => Ingredients.Add(ingredient);
     public void AddIngredients(IEnumerable<Ingredient> ingredients) => Ingredients.ToList().AddRange(ingredients);
