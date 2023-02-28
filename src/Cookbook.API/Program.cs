@@ -1,6 +1,8 @@
 using Cookbook.API.Extensions;
 using Cookbook.API.Filters;
 using Cookbook.API.Middleware;
+using Cookbook.API.WebSockets;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +41,15 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddScoped<IAuthorizationHandler, AuthenticatedUserHandler>();
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("AuthenticatedUser", policy => policy.Requirements.Add(new AuthenticatedUserRequirement()));
+});
+
 builder.Services.AddScoped<AuthenticatedUserAttribute>();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -55,6 +65,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<CultureMiddleware>();
+
+app.MapHub<AddConnection>("/addConnection");
+
 app.Run();
 
 
