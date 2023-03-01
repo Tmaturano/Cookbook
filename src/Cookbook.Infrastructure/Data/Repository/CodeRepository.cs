@@ -20,6 +20,6 @@ public class CodeRepository : RepositoryBase<Code>, ICodeRepository
         }
 
         code.SetValue(obj.Value);
-        Update(obj);
+        Update(code);
     }
 }

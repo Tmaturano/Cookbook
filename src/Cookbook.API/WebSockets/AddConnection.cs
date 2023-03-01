@@ -7,16 +7,23 @@ namespace Cookbook.API.WebSockets;
 [Authorize(Policy = "AuthenticatedUser")]
 public class AddConnection : Hub
 {
+    private readonly Broadcaster _broadcaster;
     private readonly IGenerateQrCodeUseCase _generateQrCodeUseCase;
+    private readonly IHubContext<AddConnection> _hubContext;
 
-    public AddConnection(IGenerateQrCodeUseCase generateQrCodeUseCase)
+    public AddConnection(IGenerateQrCodeUseCase generateQrCodeUseCase, IHubContext<AddConnection> hubContext)
     {
+        _broadcaster = Broadcaster.Instance;
+
         _generateQrCodeUseCase = generateQrCodeUseCase;
+        _hubContext = hubContext;
     }
 
     public async Task GetQrCodeAsync()
     {
         var qrCode = await _generateQrCodeUseCase.ExecuteAsync();
+
+        _broadcaster.InitializeConnection(_hubContext, Context.ConnectionId);
 
         //send to all
         //await Clients.All.SendAsync("ResultQrCode", qrCode);
