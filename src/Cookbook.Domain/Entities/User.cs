@@ -18,6 +18,8 @@ public class User : EntityBase
     public string PasswordHash { get; private set; }
     public string Phone { get; private set; }
     public ICollection<Recipe> Recipes { get; private set; } = new List<Recipe>();
+    public Code Code { get; private set; }
 
     public void SetPassword(string password) => PasswordHash = password;
+    public void SetCode(Code code) => Code = code;
 }

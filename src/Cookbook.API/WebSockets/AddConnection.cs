@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Cookbook.Application.UseCases.Connection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cookbook.API.WebSockets;
@@ -6,9 +7,16 @@ namespace Cookbook.API.WebSockets;
 [Authorize(Policy = "AuthenticatedUser")]
 public class AddConnection : Hub
 {
+    private readonly IGenerateQrCodeUseCase _generateQrCodeUseCase;
+
+    public AddConnection(IGenerateQrCodeUseCase generateQrCodeUseCase)
+    {
+        _generateQrCodeUseCase = generateQrCodeUseCase;
+    }
+
     public async Task GetQrCodeAsync()
     {
-        var qrCode = "ABCD123";
+        var qrCode = await _generateQrCodeUseCase.ExecuteAsync();
 
         //send to all
         //await Clients.All.SendAsync("ResultQrCode", qrCode);
@@ -22,12 +30,5 @@ public class AddConnection : Hub
 
         //to whoever called this function
         await Clients.Caller.SendAsync("ResultQrCode", qrCode);
-    }
-
-    public override Task OnConnectedAsync()
-    {
-        var context = Context.ConnectionId;
-
-        return base.OnConnectedAsync();
     }
 }

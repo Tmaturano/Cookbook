@@ -20,7 +20,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
         GC.SuppressFinalize(this);
     }
 
-    public async Task AddAsync(TEntity obj) => await DbSet.AddAsync(obj);
+    public virtual async Task AddAsync(TEntity obj) => await DbSet.AddAsync(obj);
 
     public async Task<bool> ExistsAsync(Guid id) => await DbSet.FindAsync(id) is not null;
 
