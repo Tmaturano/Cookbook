@@ -2,5 +2,5 @@
 
 public interface IGenerateQrCodeUseCase
 {
-    Task<string> ExecuteAsync();
+    Task<(string QrCode, string UserId)> ExecuteAsync();
 }

@@ -22,4 +22,6 @@ public class CodeRepository : RepositoryBase<Code>, ICodeRepository
         code.SetValue(obj.Value);
         Update(code);
     }
+
+    public async Task<Code> GetCodeAsync(string code) => await DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Value == code);
 }

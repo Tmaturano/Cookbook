@@ -18,7 +18,7 @@ public class GenerateQrCodeUseCase : IGenerateQrCodeUseCase
         _codeRepository = codeRepository;
     }
 
-    public async Task<string> ExecuteAsync()
+    public async Task<(string QrCode, string UserId)> ExecuteAsync()
     {
         var authenticatedUser = await _authenticatedUser.GetAsync();
 
@@ -27,6 +27,6 @@ public class GenerateQrCodeUseCase : IGenerateQrCodeUseCase
         await _codeRepository.AddAsync(code);
         await _unitOfWork.CommitAsync();
 
-        return code.Value;
+        return (code.Value, code.UserId.ToString());
     }
 }
