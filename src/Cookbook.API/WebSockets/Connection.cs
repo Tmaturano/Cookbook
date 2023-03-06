@@ -7,6 +7,7 @@ public class Connection
     private readonly IHubContext<AddConnection> _hubContext;
     private readonly string _ownerConnectionId;
     private Action<string> _callbackExpiredTime;
+    private string _ownerQrCodeConnectionId; 
 
 
     public Connection(IHubContext<AddConnection> hubContext, string ownerConnectionId)
@@ -22,6 +23,28 @@ public class Connection
     {
         _callbackExpiredTime = callbackExpiredTime;
 
+        StartTimer();
+    }
+
+    public void ResetTimer()
+    {
+        StopTimer();
+        StartTimer();
+    }
+
+    public void StopTimer()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+        _timer = null;
+    }
+
+    public void SetQrCodeUserConnectionId(string connectionId) => _ownerQrCodeConnectionId = connectionId;
+
+    public string ReadQrCodeUser() => _ownerQrCodeConnectionId;
+
+    private void StartTimer()
+    {
         _timeLeftInSeconds = 60;
         _timer = new System.Timers.Timer(1000)
         {
@@ -40,12 +63,5 @@ public class Connection
             StopTimer();
             _callbackExpiredTime(_ownerConnectionId);
         }
-    }
-
-    private void StopTimer()
-    {
-        _timer?.Stop();
-        _timer?.Dispose();
-        _timer = null;
     }
 }

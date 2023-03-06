@@ -23,5 +23,12 @@ public class CodeRepository : RepositoryBase<Code>, ICodeRepository
         Update(code);
     }
 
+    public async Task DeleteAsync(Guid userId)
+    {
+        var codes = await DbSet.Where(c => c.UserId == userId).ToListAsync();
+        if (codes.Any())        
+            DbSet.RemoveRange(codes);        
+    }
+
     public async Task<Code> GetCodeAsync(string code) => await DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Value == code);
 }
