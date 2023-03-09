@@ -8,9 +8,12 @@ public class RefuseConnectionUseCase : IRefuseConnectionUseCase
 {
     private readonly ICodeRepository _codeRepository;    
     private readonly IAuthenticatedUser _authenticatedUser;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;    
 
-    public RefuseConnectionUseCase(ICodeRepository codeRepository, IAuthenticatedUser authenticatedUser, IUnitOfWork unitOfWork)
+    public RefuseConnectionUseCase(ICodeRepository codeRepository, 
+        IAuthenticatedUser authenticatedUser, 
+        IUnitOfWork unitOfWork, 
+        IConnectionRepository connectionRepository)
     {
         _codeRepository = codeRepository;
         _authenticatedUser = authenticatedUser;

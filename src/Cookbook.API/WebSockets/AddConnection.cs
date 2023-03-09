@@ -1,4 +1,5 @@
 ﻿using Cookbook.Application.UseCases.Connection;
+using Cookbook.Application.UseCases.Connection.AcceptConnection;
 using Cookbook.Application.UseCases.Connection.QrCodeRead;
 using Cookbook.Application.UseCases.Connection.RefuseConnection;
 using Cookbook.Exceptions;
@@ -15,17 +16,20 @@ public class AddConnection : Hub
     private readonly IHubContext<AddConnection> _hubContext;
     private readonly IQRCodeReadUseCase _qRCodeReadUseCase;
     private readonly IRefuseConnectionUseCase _refuseConnectionUseCase;
+    private readonly IAcceptConnectionUseCase _acceptConnectionUseCase;
 
-    public AddConnection(IGenerateQrCodeUseCase generateQrCodeUseCase, 
-        IHubContext<AddConnection> hubContext, 
-        IQRCodeReadUseCase qRCodeReadUseCase, 
-        IRefuseConnectionUseCase refuseConnectionUseCase)
+    public AddConnection(IGenerateQrCodeUseCase generateQrCodeUseCase,
+        IHubContext<AddConnection> hubContext,
+        IQRCodeReadUseCase qRCodeReadUseCase,
+        IRefuseConnectionUseCase refuseConnectionUseCase,
+        IAcceptConnectionUseCase acceptConnectionUseCase)
     {
         _broadcaster = Broadcaster.Instance;
         _generateQrCodeUseCase = generateQrCodeUseCase;
         _hubContext = hubContext;
         _qRCodeReadUseCase = qRCodeReadUseCase;
         _refuseConnectionUseCase = refuseConnectionUseCase;
+        _acceptConnectionUseCase = acceptConnectionUseCase;
     }
 
     public async Task GetQrCodeAsync()
@@ -73,12 +77,43 @@ public class AddConnection : Hub
 
     public async Task RefuseConnectionAsync()
     {
-        var ownerQrCodeConnectionId = Context.ConnectionId;
+        try
+        {
+            var ownerQrCodeConnectionId = Context.ConnectionId;
 
-        var authenticatedUserId = await _refuseConnectionUseCase.ExecuteAsync();
+            var authenticatedUserId = await _refuseConnectionUseCase.ExecuteAsync();
 
-        var readQrCodeUserConnectionId = _broadcaster.Remove(ownerQrCodeConnectionId, authenticatedUserId.ToString());
+            var readQrCodeUserConnectionId = _broadcaster.Remove(ownerQrCodeConnectionId, authenticatedUserId.ToString());
 
-        await Clients.Client(readQrCodeUserConnectionId).SendAsync("ConnectionRefused");
+            await Clients.Client(readQrCodeUserConnectionId).SendAsync("ConnectionRefused");
+        }
+        catch (InvalidOperationException ex)
+        {
+            await Clients.Caller.SendAsync("Error", ex.Message);
+        }
+        catch (Exception ex)
+        {
+            await Clients.Caller.SendAsync("Error", ErrorMessages.UnknownError);
+        }     
+    }
+
+    public async Task AcceptConnectionAsync(Guid userIdToConnect)
+    {
+        try
+        {
+            var authenticatedUserId = await _acceptConnectionUseCase.ExecuteAsync(userIdToConnect);
+            var qrCodeOwnerConnectionId = Context.ConnectionId;
+            var qrCodeUserReadConnectionId = _broadcaster.Remove(qrCodeOwnerConnectionId, authenticatedUserId.ToString());
+
+            await Clients.Client(qrCodeUserReadConnectionId).SendAsync("ConnectionAccepted");
+        }
+        catch (InvalidOperationException ex)
+        {
+            await Clients.Caller.SendAsync("Error", ex.Message);
+        }
+        catch (Exception ex)
+        {
+            await Clients.Caller.SendAsync("Error", ErrorMessages.UnknownError);
+        }
     }
 }

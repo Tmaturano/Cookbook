@@ -12,4 +12,7 @@ public class ConnectionRepository : RepositoryBase<Connection>, IConnectionRepos
 
     public async Task<bool> ExistsBetween(Guid userId, Guid connectedWithUserId) 
         => await DbSet.AnyAsync(x => x.UserId == userId && x.ConnectedWithUserId == connectedWithUserId);
+
+    public async Task RegisterAsync(Connection connection) 
+        => await DbSet.AddAsync(connection);
 }

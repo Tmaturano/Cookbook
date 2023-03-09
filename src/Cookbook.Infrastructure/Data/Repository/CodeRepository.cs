@@ -30,5 +30,5 @@ public class CodeRepository : RepositoryBase<Code>, ICodeRepository
             DbSet.RemoveRange(codes);        
     }
 
-    public async Task<Code> GetCodeAsync(string code) => await DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Value == code);
+    public async Task<Code> GetCodeAsync(string code) => await DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Value == code); 
 }

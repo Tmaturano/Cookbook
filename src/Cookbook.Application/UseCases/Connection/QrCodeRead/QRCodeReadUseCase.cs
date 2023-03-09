@@ -27,7 +27,7 @@ public class QRCodeReadUseCase : IQRCodeReadUseCase
 
         await ValidateAsync(code, authenticatedUser);
 
-        var userToConnect = new UserConnectionResponse(authenticatedUser.Name);
+        var userToConnect = new UserConnectionResponse(authenticatedUser.Name, authenticatedUser.Id);
 
         return (userToConnect, code.UserId.ToString());
     }
