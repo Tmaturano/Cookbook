@@ -2,7 +2,9 @@ using Cookbook.API.Extensions;
 using Cookbook.API.Filters;
 using Cookbook.API.Middleware;
 using Cookbook.API.WebSockets;
+using Cookbook.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,7 +53,19 @@ builder.Services.AddScoped<AuthenticatedUserAttribute>();
 
 builder.Services.AddSignalR();
 
+builder.Services.AddHealthChecks().AddDbContextCheck<CookbookContext>();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [ HealthStatus.Healthy ] = StatusCodes.Status200OK,        
+        [ HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
