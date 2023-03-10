@@ -52,8 +52,8 @@ builder.Services.AddAuthorization(option =>
 builder.Services.AddScoped<AuthenticatedUserAttribute>();
 
 builder.Services.AddSignalR();
-
 builder.Services.AddHealthChecks().AddDbContextCheck<CookbookContext>();
+
 
 var app = builder.Build();
 
@@ -79,7 +79,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<CultureMiddleware>();
-
 app.MapHub<AddConnection>("/addConnection");
 
 app.Run();

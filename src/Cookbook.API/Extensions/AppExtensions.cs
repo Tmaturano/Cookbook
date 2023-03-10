@@ -69,6 +69,7 @@ namespace Cookbook.API.Extensions
             builder.Services.AddScoped<IRefuseConnectionUseCase, RefuseConnectionUseCase>();
             builder.Services.AddScoped<IAcceptConnectionUseCase, AcceptConnectionUseCase>();
 
+
             //Services
             builder.Services.AddScoped<IAuthenticatedUser, AuthenticatedUser>();
         }
