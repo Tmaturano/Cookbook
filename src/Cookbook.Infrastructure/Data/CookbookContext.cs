@@ -11,9 +11,17 @@ public class CookbookContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Code> Codes { get; set; }
+    public DbSet<Connection> Connections { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserMap());
+        modelBuilder.ApplyConfiguration(new RecipeMap());
+        modelBuilder.ApplyConfiguration(new IngredientMap());
+        modelBuilder.ApplyConfiguration(new CodeMap());
+        modelBuilder.ApplyConfiguration(new ConnectionMap());
     }
 }

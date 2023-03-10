@@ -3,7 +3,14 @@ using Cookbook.Application;
 using Cookbook.Application.Services.AuthenticatedUser;
 using Cookbook.Application.Services.AutoMapper;
 using Cookbook.Application.Services.JWT;
+using Cookbook.Application.UseCases.Connection;
+using Cookbook.Application.UseCases.Connection.AcceptConnection;
+using Cookbook.Application.UseCases.Connection.QrCodeRead;
+using Cookbook.Application.UseCases.Connection.RefuseConnection;
+using Cookbook.Application.UseCases.Dashboard;
 using Cookbook.Application.UseCases.Login.DoLogin;
+using Cookbook.Application.UseCases.Recipe.Create;
+using Cookbook.Application.UseCases.Recipe.GetById;
 using Cookbook.Application.UseCases.User.Create;
 using Cookbook.Application.UseCases.User.UpdatePassword;
 using Cookbook.Domain.Interfaces.Repository;
@@ -45,12 +52,23 @@ namespace Cookbook.API.Extensions
             builder.Services.AddScoped<ITokenService, TokenService>();
 
             //Repositories
-            builder.Services.AddScoped<IUserRepository, UserRepository>();            
+            builder.Services.AddScoped<IUserRepository, UserRepository>();   
+            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+            builder.Services.AddScoped<ICodeRepository, CodeRepository>();
+            builder.Services.AddScoped<IConnectionRepository, ConnectionRepository>();
 
             //UseCases
             builder.Services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
             builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
             builder.Services.AddScoped<IUpdatePasswordUseCase, UpdatePasswordUseCase>();
+            builder.Services.AddScoped<ICreateRecipeUseCase, CreateRecipeUseCase>();
+            builder.Services.AddScoped<IDashboardUseCase, DashboardUseCase>();
+            builder.Services.AddScoped<IGetRecipeByIdUseCase, GetRecipeByIdUseCase>();
+            builder.Services.AddScoped<IGenerateQrCodeUseCase, GenerateQrCodeUseCase>();
+            builder.Services.AddScoped<IQRCodeReadUseCase, QRCodeReadUseCase>();
+            builder.Services.AddScoped<IRefuseConnectionUseCase, RefuseConnectionUseCase>();
+            builder.Services.AddScoped<IAcceptConnectionUseCase, AcceptConnectionUseCase>();
+
 
             //Services
             builder.Services.AddScoped<IAuthenticatedUser, AuthenticatedUser>();

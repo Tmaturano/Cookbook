@@ -48,11 +48,16 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "fr",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"name\": \"{{$randomFullName}}\",\r\n  \"email\": \"{{EMAIL}}\",\r\n  \"password\": \"{{PASSWORD}}\",\r\n  \"phone\": \"{{phoneNumber}}\"\r\n}",
-
 					"options": {
 						"raw": {
 							"language": "json"
@@ -154,7 +159,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"email\": \"invalid_email.com\",\r\n  \"password\": \"\"\r\n}",
@@ -294,6 +305,202 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Add Recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate if the recipe was successfully creted\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"title\");\r",
+							"    pm.response.to.have.jsonBody(\"category\");\r",
+							"    pm.response.to.have.jsonBody(\"preparationMode\");\r",
+							"    pm.response.to.have.jsonBody(\"ingredients\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en-US",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"preparationMode\": \"{{$randomLoremParagraph}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"quantity\": \"{{$randomVerb}}\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/recipe",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate if the dashboard was successfully returned\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"    \r",
+							"    let jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.recipes).to.be.an(\"array\")\r",
+							"    pm.expect(jsonData.recipes[0]).to.have.keys(\"id\", \"title\", \"ingredientsQuantity\")\r",
+							"\r",
+							"    pm.environment.set(\"RECIPE_ID\", jsonData.recipes[0].id);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ingredientTitle\": \"\",\r\n  \"category\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/dashboard",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate if the recipe was successfully returned\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"title\");\r",
+							"    pm.response.to.have.jsonBody(\"category\");\r",
+							"    pm.response.to.have.jsonBody(\"preparationMode\");\r",
+							"    \r",
+							"    let jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.ingredients).to.be.an(\"array\")  \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en-US",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/recipe/{{RECIPE_ID}}",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"recipe",
+						"{{RECIPE_ID}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -321,6 +528,12 @@
 			"key": "URLBASE",
 			"value": "https://localhost:7021/api/v1",
 			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRoaWFnb21hdHVAZ21haWwuY29tIiwibmJmIjoxNjczNDM4OTEyLCJleHAiOjE2NzM0NDYxMTIsImlhdCI6MTY3MzQzODkxMn0.Y6hTc4gLB0ie_ow9z71cXbRQiONk48Aw5e1QOGqzQ6E",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }

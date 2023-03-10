@@ -13,6 +13,7 @@ public class AutoMapperConfiguration
         return new MapperConfiguration(config =>
         {
             config.AddProfile(new ResponseToDomainMappingProfile());
+            config.AddProfile(new DomainToResponseMappingProfile());
         });
     }
 }

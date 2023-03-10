@@ -22,6 +22,129 @@ namespace Cookbook.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Cookbook.Domain.Entities.Code", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("CreatedOn");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Codes", (string)null);
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Connection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ConnectedWithUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("CreatedOn");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConnectedWithUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Connections", (string)null);
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Ingredient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("CreatedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Quantity");
+
+                    b.Property<Guid?>("RecipeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Ingredients", (string)null);
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Recipe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("INT")
+                        .HasColumnName("Category");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("CreatedOn");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("PrepTime")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PreparationMode")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("PreparationMode");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Recipes", (string)null);
+                });
+
             modelBuilder.Entity("Cookbook.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -61,6 +184,74 @@ namespace Cookbook.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Code", b =>
+                {
+                    b.HasOne("Cookbook.Domain.Entities.User", "User")
+                        .WithOne("Code")
+                        .HasForeignKey("Cookbook.Domain.Entities.Code", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Code_User_Id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Connection", b =>
+                {
+                    b.HasOne("Cookbook.Domain.Entities.User", "ConnectedWithUser")
+                        .WithMany()
+                        .HasForeignKey("ConnectedWithUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Connection_ConnectedWithUsers");
+
+                    b.HasOne("Cookbook.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Connection_User");
+
+                    b.Navigation("ConnectedWithUser");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Ingredient", b =>
+                {
+                    b.HasOne("Cookbook.Domain.Entities.Recipe", "Recipe")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("FK_Ingredient_Recipe");
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Recipe", b =>
+                {
+                    b.HasOne("Cookbook.Domain.Entities.User", "Owner")
+                        .WithMany("Recipes")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Recipe_User");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.Recipe", b =>
+                {
+                    b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("Cookbook.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Code");
+
+                    b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618
         }

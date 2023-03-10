@@ -6,4 +6,8 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Cookbook.SharedKernel\Cookbook.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>

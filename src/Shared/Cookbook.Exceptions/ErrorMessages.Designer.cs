@@ -151,6 +151,15 @@ namespace Cookbook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recipe not found..
+        /// </summary>
+        public static string RecipeNotFound {
+            get {
+                return ResourceManager.GetString("RecipeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faça o login novamente..
         /// </summary>
         public static string TokenExpired {
